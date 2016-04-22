@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace StatisticsGenerator
 {
+    // If you change this, change it in Processor.cs as well; these should remain
+    // in lockstep, and will probably compile-error if they're not
+    using Value = Double;
+
+
     public enum Calculation
     {
         MinValue,
@@ -24,8 +29,8 @@ namespace StatisticsGenerator
     public class Configuration
     {
         // PeriodChoice operations
-        Dictionary<PeriodChoice, Func<List<double>,double>> periodChoices = 
-            new Dictionary<PeriodChoice, Func<List<double>, double>>()
+        Dictionary<PeriodChoice, Func<List<Value>,Value>> periodChoices = 
+            new Dictionary<PeriodChoice, Func<List<Value>, Value>>()
             {
                 { PeriodChoice.FirstValue, (vs) => vs[0] },
                 { PeriodChoice.LastValue, (vs) => vs[vs.Count - 1] },
@@ -34,8 +39,8 @@ namespace StatisticsGenerator
             };
 
         // Calculation operations
-        Dictionary<Calculation, Func<List<double>, double>> calculations =
-            new Dictionary<Calculation, Func<List<double>, double>>()
+        Dictionary<Calculation, Func<List<Value>, Value>> calculations =
+            new Dictionary<Calculation, Func<List<Value>, Value>>()
             {
                 { Calculation.MinValue, (vs) => vs.Min() },
                 { Calculation.MaxValue, (vs) => vs.Max() },
@@ -54,12 +59,12 @@ namespace StatisticsGenerator
         public Calculation Calculation { get; private set; }
         public PeriodChoice PeriodChoice { get; private set; }
 
-        public double ChoosePeriod(List<double> periods)
+        public double ChoosePeriod(List<Value> periods)
         {
             return periodChoices[PeriodChoice](periods);
         }
 
-        public double Calculate(List<double> values)
+        public double Calculate(List<Value> values)
         {
             return calculations[Calculation](values);
         }
