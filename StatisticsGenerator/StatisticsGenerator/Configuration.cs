@@ -33,6 +33,16 @@ namespace StatisticsGenerator
                 { PeriodChoice.MaxValue, (vs) => vs.Max() }
             };
 
+        // Calculation operations
+        Dictionary<Calculation, Func<List<double>, double>> calculations =
+            new Dictionary<Calculation, Func<List<double>, double>>()
+            {
+                { Calculation.MinValue, (vs) => vs.Min() },
+                { Calculation.MaxValue, (vs) => vs.Max() },
+                { Calculation.Average, (vs) => vs.Average() }
+            };
+
+
         public Configuration(string name, Calculation calc, PeriodChoice pc)
         {
             this.VariableName = name;
@@ -51,7 +61,7 @@ namespace StatisticsGenerator
 
         public double Calculate(List<double> values)
         {
-            return 0.0f;
+            return calculations[Calculation](values);
         }
     }
 }

@@ -12,6 +12,8 @@ namespace StatGenTests
         List<double> values1 = new List<double>() { 0.2, 0.4, 0.0, 0.3, 0.1 };
         List<double> values2 = new List<double>() { 0, 165215335.38, 130922548.81, 107196660.00, 92462698.42, 84655947.13 };
 
+        List<double> calcValues = new List<double>() { 165215335.38, 130922548.81, 107196660.00 };
+
         [TestMethod]
         public void TestFirstValues()
         {
@@ -61,6 +63,36 @@ namespace StatGenTests
             Assert.AreEqual(0.4, result);
 
             result = con.ChoosePeriod(values2);
+            Assert.AreEqual(165215335.38, result);
+        }
+
+        [TestMethod]
+        public void CalculateAverages()
+        {
+            Configuration con = new Configuration("", Calculation.Average, PeriodChoice.FirstValue);
+                // name and period choice unused in this test
+
+            var result = con.Calculate(calcValues);
+            Assert.AreEqual(134444848.1, result, 0.1); // Technically 134444848.063333, but who's counting?
+        }
+
+        [TestMethod]
+        public void CalculateMins()
+        {
+            Configuration con = new Configuration("", Calculation.MinValue, PeriodChoice.FirstValue);
+            // name and period choice unused in this test
+
+            var result = con.Calculate(calcValues);
+            Assert.AreEqual(107196660.00, result);
+        }
+
+        [TestMethod]
+        public void CalculateMaxs()
+        {
+            Configuration con = new Configuration("", Calculation.MaxValue, PeriodChoice.FirstValue);
+                // name and period choice unused in this test
+
+            var result = con.Calculate(calcValues);
             Assert.AreEqual(165215335.38, result);
         }
     }
