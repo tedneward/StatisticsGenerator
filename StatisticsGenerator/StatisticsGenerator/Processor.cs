@@ -24,7 +24,7 @@ namespace StatisticsGenerator
 
     public class Processor
     {
-        private List<Value> processedEntries = new List<Value>();
+        private Dictionary<string, List<Value>> processedEntries = new Dictionary<string, List<Value>>();
 
         public Processor()
         {
@@ -35,7 +35,30 @@ namespace StatisticsGenerator
 
         public void Process(Entry e)
         {
+            foreach (var con in Configurations)
+            {
+                if (con.VariableName == e.VarName)
+                {
+                    // First time through? Create the List, since it won't exist otherwise
+                    if (processedEntries.Keys.Contains(con.VariableName) == false)
+                        processedEntries.Add(con.VariableName, new List<Value>());
 
+                    processedEntries[con.VariableName].Add(con.ChoosePeriod(e.Values));
+                }
+            }
+        }
+
+        public Dictionary<string, Value> Calculations()
+        {
+            var result = new Dictionary<string, Value>();
+            foreach (var con in Configurations)
+            {
+                var values = processedEntries[con.VariableName];
+                // Is it possible that there will be configurations that don't have actual varnames in the data?
+                // This will exception-out if it is.
+                result[con.VariableName] = con.Calculate(values);
+            }
+            return result;
         }
     }
 }
