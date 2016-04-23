@@ -58,7 +58,41 @@ namespace StatGenTests
                 proc.Process(e);
 
             var result = proc.Calculations();
-            Assert.AreEqual(134444848.1, result["CashPrem"], 0.1);
+            Assert.AreEqual(134444848.1, result["CashPrem-Average-MaxValue"], 0.1);
+        }
+
+        [TestMethod]
+        public void MultipleCashPremExampleTest()
+        {
+            Processor proc = new Processor();
+
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MaxValue));
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MinValue));
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.FirstValue));
+
+            foreach (var e in entries)
+                proc.Process(e);
+
+            var result = proc.Calculations();
+            Assert.AreEqual(134444848.1, result["CashPrem-Average-MaxValue"], 0.1);
+            Assert.AreEqual(0, result["CashPrem-Average-MinValue"], 0.1);
+            Assert.AreEqual(0, result["CashPrem-Average-FirstValue"], 0.1);
+        }
+
+        [TestMethod]
+        public void DupedCashPremExampleTest()
+        {
+            Processor proc = new Processor();
+
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MaxValue));
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MaxValue));
+            proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MaxValue));
+
+            foreach (var e in entries)
+                proc.Process(e);
+
+            var result = proc.Calculations();
+            Assert.AreEqual(134444848.1, result["CashPrem-Average-MaxValue"], 0.1);
         }
     }
 }

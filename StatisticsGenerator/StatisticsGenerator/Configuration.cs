@@ -58,6 +58,13 @@ namespace StatisticsGenerator
         public string VariableName { get; private set; }
         public Calculation Calculation { get; private set; }
         public PeriodChoice PeriodChoice { get; private set; }
+        public string ConfigurationName
+        {
+            get
+            {
+                return VariableName + "-" + Calculation + "-" + PeriodChoice;
+            }
+        }
 
         public double ChoosePeriod(List<Value> periods)
         {

@@ -56,8 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigTests.cs" />
     <Compile Include="ProcessorTests.cs" />
+    <Compile Include="ShellTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Shell\Shell.csproj">
+      <Project>{274af909-9370-451e-a371-0131918eed30}</Project>
+      <Name>Shell</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StatisticsGenerator\StatisticsGenerator.csproj">
       <Project>{cf9ee1ef-7a4d-4e95-8574-5d150b83ad35}</Project>
       <Name>StatisticsGenerator</Name>

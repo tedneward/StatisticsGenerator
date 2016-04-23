@@ -40,10 +40,10 @@ namespace StatisticsGenerator
                 if (con.VariableName == e.VarName)
                 {
                     // First time through? Create the List, since it won't exist otherwise
-                    if (processedEntries.Keys.Contains(con.VariableName) == false)
-                        processedEntries.Add(con.VariableName, new List<Value>());
+                    if (processedEntries.Keys.Contains(con.ConfigurationName) == false)
+                        processedEntries.Add(con.ConfigurationName, new List<Value>());
 
-                    processedEntries[con.VariableName].Add(con.ChoosePeriod(e.Values));
+                    processedEntries[con.ConfigurationName].Add(con.ChoosePeriod(e.Values));
                 }
             }
         }
@@ -53,10 +53,10 @@ namespace StatisticsGenerator
             var result = new Dictionary<string, Value>();
             foreach (var con in Configurations)
             {
-                var values = processedEntries[con.VariableName];
+                var values = processedEntries[con.ConfigurationName];
                 // Is it possible that there will be configurations that don't have actual varnames in the data?
                 // This will exception-out if it is.
-                result[con.VariableName] = con.Calculate(values);
+                result[con.ConfigurationName] = con.Calculate(values);
             }
             return result;
         }
