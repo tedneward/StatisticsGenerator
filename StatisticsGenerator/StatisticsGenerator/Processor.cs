@@ -29,7 +29,27 @@ namespace StatisticsGenerator
         public Processor()
         {
             this.Configurations = new List<Configuration>();
+
+            // These are here so that (a) Processor can have a default error/warning system, typically
+            // a log file or something, and (b) so that we are guaranteed that the OnError/OnWarning
+            // events are never null and therefore always safe to call
+            this.OnError += Processor_OnError;
+            this.OnWarning += Processor_OnWarning;
         }
+
+        private void Processor_OnWarning(string message, params object[] data)
+        {
+            // Do nothing for now; add a System.Diagnostics output stream later
+        }
+
+        private void Processor_OnError(string message, params object[] data)
+        {
+            // Do nothing for now; add a System.Diagnostics output stream later
+        }
+
+        public delegate void ReportProc(string message, params object[] data);
+        public event ReportProc OnError;
+        public event ReportProc OnWarning;
 
         public List<Configuration> Configurations { get; private set; }
 
