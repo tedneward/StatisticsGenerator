@@ -9,6 +9,8 @@ namespace StatGenTests
     [TestClass]
     public class ProcessingTests
     {
+        public TestContext TestContext { get; set; }
+
         List<Entry> entries = new List<Entry>()
         {
             new Entry() { ScenId = 1, VarName = "AvePolLoanYield", Values = new List<double>() { 0.00, 0.04, 0.04, 0.04, 0.04, 0.03 } },
@@ -51,6 +53,7 @@ namespace StatGenTests
         public void CashPremExampleTest()
         {
             Processor proc = new Processor();
+            proc.OnInformation += (message, data) => { TestContext.WriteLine(message, data); };
 
             proc.Configurations.Add(new Configuration("CashPrem", Calculation.Average, PeriodChoice.MaxValue));
 

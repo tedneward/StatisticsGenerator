@@ -35,6 +35,12 @@ namespace StatisticsGenerator
             // events are never null and therefore always safe to call
             this.OnError += Processor_OnError;
             this.OnWarning += Processor_OnWarning;
+            this.OnInformation += Processor_OnInformation;
+        }
+
+        private void Processor_OnInformation(string message, params object[] data)
+        {
+            // Definitely do nothing--just a placeholder
         }
 
         private void Processor_OnWarning(string message, params object[] data)
@@ -50,6 +56,7 @@ namespace StatisticsGenerator
         public delegate void ReportProc(string message, params object[] data);
         public event ReportProc OnError;
         public event ReportProc OnWarning;
+        public event ReportProc OnInformation;
 
         public List<Configuration> Configurations { get; private set; }
 
@@ -59,6 +66,8 @@ namespace StatisticsGenerator
             {
                 if (con.VariableName == e.VarName)
                 {
+                    OnInformation("Processing {0}/{1}", e.ScenId, e.VarName);
+
                     // First time through? Create the List, since it won't exist otherwise
                     if (processedEntries.Keys.Contains(con.ConfigurationName) == false)
                         processedEntries.Add(con.ConfigurationName, new List<Value>());
@@ -74,8 +83,6 @@ namespace StatisticsGenerator
             foreach (var con in Configurations)
             {
                 var values = processedEntries[con.ConfigurationName];
-                // Is it possible that there will be configurations that don't have actual varnames in the data?
-                // This will exception-out if it is.
                 result[con.ConfigurationName] = con.Calculate(values);
             }
             return result;
