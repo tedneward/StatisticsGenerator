@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "Shell\Shell.csproj", "{274AF909-9370-451E-A371-0131918EED30}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatGenTests", "StatGenTest
 	ProjectSection(ProjectDependencies) = postProject
 		{CF9EE1EF-7A4D-4E95-8574-5D150B83AD35} = {CF9EE1EF-7A4D-4E95-8574-5D150B83AD35}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellTests", "ShellTests\ShellTests.csproj", "{6CD86EEC-6A93-4263-86EC-3956F18DBDB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DA7BBB48-864C-4883-AFAD-EA6503339C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA7BBB48-864C-4883-AFAD-EA6503339C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA7BBB48-864C-4883-AFAD-EA6503339C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD86EEC-6A93-4263-86EC-3956F18DBDB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD86EEC-6A93-4263-86EC-3956F18DBDB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD86EEC-6A93-4263-86EC-3956F18DBDB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD86EEC-6A93-4263-86EC-3956F18DBDB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
